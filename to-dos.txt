@@ -1,0 +1,5 @@
+for mariadb_data create 3 users root/admin/web_app
+web_app can only INSERT/SELECT/UPDATE/DELETE
+
+services can communicate between them, if not request from user
+dzone.come/articles/communicating-betwenn-microservices

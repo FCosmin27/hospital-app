@@ -81,4 +81,7 @@ services:
     ports:
       - "6379:6379"
 
-      
+volumes:
+  mariadb_users_volume:
+  mariadb_data_volume:
+  mongodb_volume:
