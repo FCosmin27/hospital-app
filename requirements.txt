@@ -4,7 +4,7 @@ mariadb
 fastapi
 sqlalchemy
 pymysql
-pydactic
+pydantic
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
