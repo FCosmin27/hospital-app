@@ -13,7 +13,7 @@ services:
   patient_service:
     build:
       context: ./components/patient_component
-      dockerfile: Dockerfileb
+      dockerfile: Dockerfile
     ports:
       - "8002:8002"
     depends_on:
