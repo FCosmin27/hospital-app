@@ -1,0 +1,11 @@
+uvicorn
+peewee
+mariadb
+fastapi
+sqlalchemy
+pymysql
+pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+redis
