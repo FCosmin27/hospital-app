@@ -14,7 +14,7 @@ class PatientSchema(BaseModel):
     is_active : bool = True
     
     class Config:
-        orm_mode = True
+        from_attributes = True
         
 class PatientCreate(BaseModel):
     cnp: str
@@ -26,7 +26,7 @@ class PatientCreate(BaseModel):
     is_active: Optional[bool] = True
 
     class Config:
-        orm_mode = True
+        from_attributes = True
         
 class DoctorSchema(BaseModel):
     id : Optional[int] = None
@@ -37,7 +37,7 @@ class DoctorSchema(BaseModel):
     specialization : str
     
     class Config:
-        orm_mode = True
+        from_attributes = True
         
 class AppointmentStatus(str, Enum):
     done = 'done'
@@ -54,7 +54,7 @@ class AppointmentSchema(AppointmentCreate):
     id: Optional[int] = None
 
     class Config:
-        orm_mode = True        
+        from_attributes = True        
 
         
         

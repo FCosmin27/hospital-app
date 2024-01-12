@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, status, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+import crud, models, schemas
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -41,3 +41,4 @@ def read_appointment(appointment_id: int, db: Session = Depends(get_db)):
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
     return appointment
+

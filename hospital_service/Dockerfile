@@ -1,15 +1,10 @@
-FROM python:3.10.12-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 COPY . /app
 
-RUN apt-get update && \
-    apt-get install -y libmariadb-dev-compat libmariadb-dev gcc && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 8002
 
-CMD ["python", "./main.py"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8002", "--reload"]

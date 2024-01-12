@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+import models, schemas
 
 def create_patient(db: Session, patient: schemas.PatientCreate):
     db_patient = models.Patient(**patient.dict())

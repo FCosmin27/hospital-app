@@ -6,7 +6,7 @@ class Patient(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     cnp = Column(String(13), unique= True)
-    id_user = Column(Integer, ForeignKey('users.id'))
+    id_user = Column(Integer, unique=True)
     last_name = Column(String(50))
     first_name = Column(String(50))
     email = Column(String(70), unique=True)
@@ -15,16 +15,15 @@ class Patient(Base):
     is_active = Column(Boolean, default=True)
     
 class Doctor(Base):
-    _tablename__ = 'doctors'
+    __tablename__ = 'doctors'
     
     id = Column(Integer, primary_key=True, index=True)
-    id_user = Column(Integer, ForeignKey('users.id'))
+    id_user = Column(Integer, unique=True)
     last_name = Column(String(50))
     first_name = Column(String(50))
     email = Column(String(70), unique=True)
     phone = Column(String(10))
     specialization = Column(Enum('cardiologist', 'neurologist', 'surgeon', 'gynecologist', 'pediatrician', 'dermatologist', 'psychiatrist', 'dentist', 'ophthalmologist', 'orthopedist', 'urologist', 'endocrinologist', 'gastroenterologist', 'pulmonologist', 'rheumatologist', 'nephrologist', 'oncologist', 'allergist', 'hematologist', 'infectious_disease_specialist', 'pathologist', 'radiologist', 'anesthesiologist', 'other'))
-    
 
 class Appointment(Base):
     __tablename__ = 'appointments'
