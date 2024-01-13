@@ -31,4 +31,4 @@ class Appointment(Base):
     id_patient = Column(Integer, ForeignKey('patients.id'), primary_key=True)
     id_doctor = Column(Integer, ForeignKey('doctors.id'), primary_key=True)
     date = Column(Date, primary_key=True)
-    status = Column(Enum('done', 'not presented', 'canceled'))
+    status = Column(Enum('done', 'not_presented', 'canceled'))

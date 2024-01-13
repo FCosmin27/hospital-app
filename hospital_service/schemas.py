@@ -39,24 +39,26 @@ class DoctorSchema(BaseModel):
     class Config:
         from_attributes = True
         
+class DoctorCreate(BaseModel):
+    last_name: str
+    first_name: str
+    email: str
+    phone: str
+    specialization: str
+
+    class Config:
+        from_attributes = True
+        
 class AppointmentStatus(str, Enum):
     done = 'done'
-    not_presented = 'not presented'
+    not_presented = 'not_presented'
     canceled = 'canceled'
 
-class AppointmentCreate(BaseModel):
+class AppointmentSchema(BaseModel):
     id_patient: int
     id_doctor: int
     date: date
     status: AppointmentStatus
-
-class AppointmentSchema(AppointmentCreate):
-    id: Optional[int] = None
-
+    
     class Config:
-        from_attributes = True        
-
-        
-        
-        
-        
+        from_attributes = True
