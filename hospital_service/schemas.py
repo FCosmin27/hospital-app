@@ -6,6 +6,7 @@ from enum import Enum
 class PatientSchema(BaseModel):
     id : Optional[int] = None
     cnp : str
+    id_user: int
     last_name : str
     first_name : str
     email : str
@@ -18,6 +19,7 @@ class PatientSchema(BaseModel):
         
 class PatientCreate(BaseModel):
     cnp: str
+    id_user: int
     last_name: str
     first_name: str
     email: str
@@ -30,6 +32,7 @@ class PatientCreate(BaseModel):
         
 class DoctorSchema(BaseModel):
     id : Optional[int] = None
+    id_user: int
     last_name : str
     first_name : str
     email : str
@@ -40,6 +43,7 @@ class DoctorSchema(BaseModel):
         from_attributes = True
         
 class DoctorCreate(BaseModel):
+    id_user: int
     last_name: str
     first_name: str
     email: str
