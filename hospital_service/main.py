@@ -5,19 +5,19 @@ from datetime import date
 from database import SessionLocal, engine
 from typing import List
     
-#from models import Appointment, Doctor, Patient
-#from sqlalchemy import inspect
+from models import Appointments, Doctors, Patients
+from sqlalchemy import inspect
 
-#inspector = inspect(engine)
+inspector = inspect(engine)
 
-#if inspector.has_table('appointments'):
-#    Appointment.__table__.drop(engine)
+if inspector.has_table('appointments'):
+   Appointments.__table__.drop(engine)
     
-#if inspector.has_table('doctors'):
-#    Doctor.__table__.drop(engine)
+if inspector.has_table('doctors'):
+   Doctors.__table__.drop(engine)
     
-#if inspector.has_table('patients'):
-#    Patient.__table__.drop(engine)
+if inspector.has_table('patients'):
+   Patients.__table__.drop(engine)
     
 models.Base.metadata.create_all(bind=engine)
 

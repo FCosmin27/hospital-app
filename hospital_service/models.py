@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey, Enum
 from database import Base
 from typing import Any
 
-class Patient(Base):
+class Patients(Base):
     __tablename__ = 'patients'
     
     id = Column(Integer, primary_key=True, index=True)
@@ -29,7 +29,7 @@ class Patient(Base):
         }
     
     
-class Doctor(Base):
+class Doctors(Base):
     __tablename__ = 'doctors'
     
     id = Column(Integer, primary_key=True, index=True)
@@ -51,7 +51,7 @@ class Doctor(Base):
             "specialization": self.specialization
         }
         
-class Appointment(Base):
+class Appointments(Base):
     __tablename__ = 'appointments'
     
     id_patient = Column(Integer, ForeignKey('patients.id'), primary_key=True)
