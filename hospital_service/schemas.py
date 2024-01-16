@@ -1,7 +1,11 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import date
 from enum import Enum
+
+class Link(BaseModel):
+    href: str
+    rel: str
 
 class PatientSchema(BaseModel):
     id : Optional[int] = None
@@ -16,6 +20,9 @@ class PatientSchema(BaseModel):
     
     class Config:
         from_attributes = True
+        
+class PatientSchemaWithLinks(PatientSchema):
+    links : List[Link] = []
         
 class PatientCreate(BaseModel):
     cnp: str
@@ -42,6 +49,9 @@ class DoctorSchema(BaseModel):
     class Config:
         from_attributes = True
         
+class DoctorSchemaWithLinks(DoctorSchema):
+    links : List[Link] = []
+        
 class DoctorCreate(BaseModel):
     id_user: int
     last_name: str
@@ -66,3 +76,6 @@ class AppointmentSchema(BaseModel):
     
     class Config:
         from_attributes = True
+        
+class AppointmentSchemaWithLinks(AppointmentSchema):
+    links : List[Link] = []

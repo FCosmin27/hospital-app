@@ -13,6 +13,9 @@ def create_patient(db: Session, patient: schemas.PatientCreate):
 def get_patient_by_id(db: Session, patient_id: int):
     return db.query(models.Patient).filter(models.Patient.id == patient_id).first()
 
+def get_all_patients(db: Session):
+    return db.query(models.Patient).all()
+
 def patient_exists(db: Session, id: int):
     return db.query(models.Patient).filter(models.Patient.id == id).first() is not None
 
@@ -36,6 +39,9 @@ def create_doctor(db: Session, doctor: schemas.DoctorCreate):
 
 def get_doctor_by_id(db: Session, doctor_id: int):
     return db.query(models.Doctor).filter(models.Doctor.id == doctor_id).first()
+
+def get_all_doctors(db: Session):
+    return db.query(models.Doctor).all()
 
 def doctor_exists(db: Session, id: int):
     return db.query(models.Doctor).filter(models.Doctor.id == id).first() is not None
@@ -77,6 +83,9 @@ def get_appointment_by_composite_id(db: Session, patient_id: int, doctor_id: int
     return db.query(models.Appointment).filter(models.Appointment.id_patient == patient_id
                                                and models.Appointment.id_doctor == doctor_id
                                                and models.Appointment.date == date).first()
+    
+def get_all_appointments(db: Session):
+    return db.query(models.Appointment).all()
 
 def update_appointment_status(db: Session, patient_id: int, doctor_id: int, date: date, status: str):
     db_appointment = db.query(models.Appointment).filter(models.Appointment.id_patient == patient_id
