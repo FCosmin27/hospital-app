@@ -43,6 +43,14 @@ def get_doctor_by_id(db: Session, doctor_id: int):
 def get_all_doctors(db: Session):
     return db.query(models.Doctor).all()
 
+def get_doctors_by_specialization(db: Session, specialization: str):
+    db_doctors = db.query(models.Doctor).filter(models.Doctor.specialization == specialization).all()
+    return db_doctors
+
+def get_doctors_by_last_name(db: Session, last_name: str):
+    db_doctors = db.query(models.Doctor).filter(models.Doctor.last_name == last_name).all()
+    return db_doctors
+
 def doctor_exists(db: Session, id: int):
     return db.query(models.Doctor).filter(models.Doctor.id == id).first() is not None
 
@@ -86,6 +94,12 @@ def get_appointment_by_composite_id(db: Session, patient_id: int, doctor_id: int
     
 def get_all_appointments(db: Session):
     return db.query(models.Appointment).all()
+
+def get_appointments_by_patient_id(db: Session, patient_id: int):
+    return db.query(models.Appointment).filter(models.Appointment.id_patient == patient_id).all()
+
+def get_appointments_by_doctor_id(db: Session, doctor_id: int):
+    return db.query(models.Appointment).filter(models.Appointment.id_doctor == doctor_id).all()
 
 def update_appointment_status(db: Session, patient_id: int, doctor_id: int, date: date, status: str):
     db_appointment = db.query(models.Appointment).filter(models.Appointment.id_patient == patient_id

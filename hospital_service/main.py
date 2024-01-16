@@ -64,6 +64,8 @@ def read_patient(patient_id: int, db: Session = Depends(get_db)):
 @app.get("/patients/", response_model=List[schemas.PatientSchemaWithLinks])
 def read_patients(db: Session = Depends(get_db)):
     patients = crud.get_all_patients(db)
+    if not patients:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No patients found.")
     return [
         {
             **patient.to_dict(), 
@@ -110,6 +112,40 @@ def read_doctor(doctor_id: int, db: Session = Depends(get_db)):
 @app.get("/doctors/", response_model=List[schemas.DoctorSchemaWithLinks])
 def read_doctors(db: Session = Depends(get_db)):
     doctors = crud.get_all_doctors(db)
+    if not doctors:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No doctors found.")
+    return [
+        {
+            **doctor.to_dict(),
+            "links": [
+                {"href": generate_url("read_doctor", doctor_id=doctor.id), "rel": "get"},
+                {"href": generate_url("delete_doctor", doctor_id=doctor.id), "rel": "delete"}
+            ]
+        }
+        for doctor in doctors
+    ]
+
+@app.get("/doctors/specialization/{specialization}", response_model=List[schemas.DoctorSchemaWithLinks])
+def read_doctors_by_specialization(specialization: str, db: Session = Depends(get_db)):
+    doctors = crud.get_doctors_by_specialization(db, specialization)
+    if not doctors:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No doctors with specialization = {specialization} found.")
+    return [
+        {
+            **doctor.to_dict(),
+            "links": [
+                {"href": generate_url("read_doctor", doctor_id=doctor.id), "rel": "get"},
+                {"href": generate_url("delete_doctor", doctor_id=doctor.id), "rel": "delete"}
+            ]
+        }
+        for doctor in doctors
+    ]
+    
+@app.get("/doctors/last_name/{last_name}", response_model=List[schemas.DoctorSchemaWithLinks])
+def read_doctors_by_last_name(last_name: str, db: Session = Depends(get_db)):
+    doctors = crud.get_doctors_by_last_name(db, last_name)
+    if not doctors:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No doctors with last name = {last_name} found.")
     return [
         {
             **doctor.to_dict(),
@@ -159,6 +195,42 @@ def read_appointment(patient_id: int, doctor_id: int, date: date, db: Session = 
 @app.get("/appointments/", response_model=List[schemas.AppointmentSchemaWithLinks])
 def read_appointments(db: Session = Depends(get_db)):
     appointments = crud.get_all_appointments(db)
+    if not appointments:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No appointments found.")
+    return [
+        {
+            **appointment.to_dict(),
+            "links": [
+                {"href": generate_url("read_appointment", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date), "rel": "get"},
+                {"href": generate_url("update_appointment_status", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date, status=appointment.status), "rel": "update"},
+                {"href": generate_url("delete_appointment", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date), "rel": "delete"}
+            ]
+        }
+        for appointment in appointments
+    ]
+    
+@app.get("/appointments/patient_id/{patient_id}", response_model=List[schemas.AppointmentSchemaWithLinks])
+def read_appointments_by_patient_id(patient_id: int, db: Session = Depends(get_db)):
+    appointments = crud.get_appointments_by_patient_id(db, patient_id)
+    if not appointments:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No appointments with patient_id = {patient_id} found.")
+    return [
+        {
+            **appointment.to_dict(),
+            "links": [
+                {"href": generate_url("read_appointment", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date), "rel": "get"},
+                {"href": generate_url("update_appointment_status", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date, status=appointment.status), "rel": "update"},
+                {"href": generate_url("delete_appointment", patient_id=appointment.id_patient, doctor_id=appointment.id_doctor, date=appointment.date), "rel": "delete"}
+            ]
+        }
+        for appointment in appointments
+    ]
+
+@app.get("/appointments/doctor_id/{doctor_id}", response_model=List[schemas.AppointmentSchemaWithLinks])
+def read_appointments_by_doctor_id(doctor_id: int, db: Session = Depends(get_db)):
+    appointments = crud.get_appointments_by_doctor_id(db, doctor_id)
+    if not appointments:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No appointments with doctor_id = {doctor_id} found.")
     return [
         {
             **appointment.to_dict(),
