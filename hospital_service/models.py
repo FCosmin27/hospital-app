@@ -1,6 +1,18 @@
-from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey, Enum, inspect
 from database import Base
 from typing import Any
+
+def delete_tables(engine):
+    inspector = inspect(engine)
+
+    if inspector.has_table('appointments'):
+        Appointments.__table__.drop(engine)
+    
+    if inspector.has_table('doctors'):
+        Doctors.__table__.drop(engine)
+    
+    if inspector.has_table('patients'):
+        Patients.__table__.drop(engine)
 
 class Patients(Base):
     __tablename__ = 'patients'
