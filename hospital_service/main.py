@@ -4,21 +4,11 @@ import crud, models, schemas
 from datetime import date
 from database import SessionLocal, engine
 from typing import List
-    
-from models import Appointments, Doctors, Patients
-from sqlalchemy import inspect
 
-inspector = inspect(engine)
+#delete_tables(engine)    
 
-if inspector.has_table('appointments'):
-   Appointments.__table__.drop(engine)
-    
-if inspector.has_table('doctors'):
-   Doctors.__table__.drop(engine)
-    
-if inspector.has_table('patients'):
-   Patients.__table__.drop(engine)
-    
+#create_db_users()
+
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
