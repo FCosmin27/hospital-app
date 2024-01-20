@@ -25,7 +25,7 @@ class Consultation(me.Document):
     id_consultation = me.ObjectIdField(required=True, default=lambda: ObjectId())
     id_patient = me.IntField(required=True)
     id_doctor = me.IntField(required=True)
-    date = me.DateTimeField(required=True)
+    date = me.DateField(required=True)
     diagnosis = me.StringField(choices=[e.value for e in DiagnosisEnum])
     investigations = me.ListField(me.EmbeddedDocumentField(Investigation))
 
@@ -34,7 +34,7 @@ class Consultation(me.Document):
             "id_consultation": str(self.id_consultation),
             "id_patient": self.id_patient,
             "id_doctor": self.id_doctor,
-            "date": self.date.isoformat(),
+            "date": self.date,
             "diagnosis": self.diagnosis,
             "investigations": [investigation.to_dict() for investigation in self.investigations]
         }
