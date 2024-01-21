@@ -1,4 +1,3 @@
 venv/
 __pycache__/
 *.pyc
-idm_service/main-using.fastapi.txt
