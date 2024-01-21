@@ -25,7 +25,7 @@ def check_current_user_is_admin(token: str = Depends(oauth2_scheme), db: Session
     )
     db_user = verify_token(token, credentials_exception, db)
     
-    if any(role.name == 'admin' for role in db_user.roles):
+    if db_user.role.name == 'admin':
         return db_user
     else:
         raise HTTPException(status_code=403, detail="Access denied")

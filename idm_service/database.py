@@ -17,9 +17,6 @@ def get_db():
 def delete_tables():
     inspector = inspect(engine)
 
-    if inspector.has_table('user_roles'):
-        models.user_roles.drop(engine)
-
     if inspector.has_table('users'):
         models.Users.__table__.drop(engine)
     
@@ -49,9 +46,18 @@ def insert_admin_user():
         existing_admin = db.query(models.Users).filter(models.Users.username == admin_username).first()
         if not existing_admin:
             hashed_password = generate_password_hash(admin_password)
-            admin_role = db.query(models.Roles).filter(models.Roles.name == "admin").first()
-            admin_user = models.Users(username=admin_username, email=admin_email, hashed_password=hashed_password, is_active=True)
-            admin_user.roles.append(admin_role)
+            admin_role = db.query(models.Roles).filter(models.Roles.name == 'admin').first()
+            if not admin_role:
+                admin_role = models.Roles(name='admin')
+                db.add(admin_role)
+                db.commit()
+
+            admin_user = models.Users(
+                username=admin_username, 
+                email=admin_email, 
+                hashed_password=hashed_password, 
+                is_active=True, 
+                role=admin_role
+            )
             db.add(admin_user)
             db.commit()
-            db.close()

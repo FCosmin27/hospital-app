@@ -6,7 +6,7 @@ import crud, schemas, security, models
 from database import engine, get_db, delete_tables, insert_roles_into_table, insert_admin_user
 
 #Uncommnet to delete tables
-delete_tables()
+#delete_tables()
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -25,10 +25,10 @@ class IDMServiceServicer(idm_service_pb2_grpc.IDMServiceServicer):
                 context.set_details('Invalid username or password')
                 return idm_service_pb2.LoginResponse()
             
-            access_token = security.create_access_token({"sub": user.username, "role": user.roles[0].name})
+            access_token = security.create_access_token({"sub": user.username, "role": user.role.name})
             context.set_code(grpc.StatusCode.OK)
             context.set_details('Login successful')
-            return idm_service_pb2.LoginResponse(access_token=access_token)
+            return idm_service_pb2.LoginResponse(token=access_token)
         
         finally:
             db.close()
@@ -36,7 +36,8 @@ class IDMServiceServicer(idm_service_pb2_grpc.IDMServiceServicer):
     def Register(self, request, context):
         db = get_db()
         try:
-            user = crud.create_user(db, request.username, request.email, request.password, "patient")
+            user_create = schemas.UserCreate(username=request.username, email=request.email, password=request.password)
+            user = crud.create_user(db, user_create, "patient")
             if not user:
                 context.set_code(grpc.StatusCode.INTERNAL)
                 context.set_details('User already exists')

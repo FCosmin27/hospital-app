@@ -29,28 +29,29 @@ def create_user(db: Session, user: schemas.UserCreate, role_name: str):
     role = db.query(models.Roles).filter(models.Roles.name == role_name).first()
     if not role:
         raise HTTPException(status_code=404, detail=f"Role '{role_name}' not found")
-    new_user.roles.append(role)
+    new_user.role = role
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     return new_user
 
 
-def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
-    user = db.query(models.Users).filter(models.Users.id == user_id).first()
-    if not user:
+def update_user(db: Session, user_id: int, user_update: schemas.UserUpdate):
+    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    if user.email is not None:
-        user.email = user.email
-    if user.password is not None:
-        user.hashed_password = generate_password_hash(user.password)
-    if user.is_active is not None:
-        user.is_active = user.is_active
- 
+    if user_update.email is not None:
+        db_user.email = user_update.email
+    if user_update.password is not None:
+        db_user.hashed_password = generate_password_hash(user_update.password)
+    if user_update.is_active is not None:
+        db_user.is_active = user_update.is_active
+
     db.commit()
-    db.refresh(user)
-    return user
+    db.refresh(db_user)
+    return db_user
+
 
 def delete_user(db: Session, user_id: int):
     user = db.query(models.Users).filter(models.Users.id == user_id).first()
