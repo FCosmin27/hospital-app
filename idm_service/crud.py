@@ -1,7 +1,18 @@
 from sqlalchemy.orm import Session
 import models, schemas
 from crypto.encrypt import generate_password_hash
+from crypto.decrypt import check_password_hash
 from fastapi import HTTPException
+
+def authenticate_user(db: Session, username: str, password: str):
+    user = db.query(models.Users).filter(models.Users.username == username).first()
+    if not user:
+        return False
+    if not user.is_active:
+        return False
+    if not check_password_hash(password, user.hashed_password):
+        return False
+    return user
 
 def get_user(db: Session, user_id: int):
     return db.query(models.Users).filter(models.Users.id == user_id).first()
