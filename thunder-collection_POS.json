@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "POS",
-    "dateExported": "2024-01-21T13:55:21.094Z",
+    "dateExported": "2024-01-21T20:10:25.383Z",
     "version": "1.1",
     "folders": [
         {
@@ -45,6 +45,13 @@
             "containerId": "",
             "created": "2024-01-16T13:00:58.015Z",
             "sortNum": 70000
+        },
+        {
+            "_id": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "GATEWAY",
+            "containerId": "",
+            "created": "2024-01-21T19:34:30.166Z",
+            "sortNum": 80000
         }
     ],
     "requests": [
@@ -601,6 +608,91 @@
                     }
                 ]
             },
+            "tests": []
+        },
+        {
+            "_id": "da58158d-8bbd-4e99-b903-40e1edc1f850",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "login",
+            "url": "http://localhost:8001/login/",
+            "method": "POST",
+            "sortNum": 390000,
+            "created": "2024-01-21T19:34:39.474Z",
+            "modified": "2024-01-21T19:55:05.073Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"patient\",\n  \"password\":\"patient\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aae821f1-26a6-4a1d-9adb-c17778ae125f",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "register",
+            "url": "http://localhost:8001/register/",
+            "method": "POST",
+            "sortNum": 400000,
+            "created": "2024-01-21T19:35:16.646Z",
+            "modified": "2024-01-21T19:38:03.285Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"patient\",\n  \"email\": \"patient@patient.com\",\n  \"password\": \"patient\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6a20d1d0-c8a6-4331-bf13-f0fb75dc7344",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "update_user",
+            "url": "http://localhost:8001/user/3",
+            "method": "PUT",
+            "sortNum": 410000,
+            "created": "2024-01-21T19:35:26.391Z",
+            "modified": "2024-01-21T20:04:23.169Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"newemail@patient.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5b22fd25-f1e5-4538-9173-5ed4504c0333",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "get_user",
+            "url": "http://localhost:8001/user/3",
+            "method": "GET",
+            "sortNum": 420000,
+            "created": "2024-01-21T19:35:35.222Z",
+            "modified": "2024-01-21T20:03:01.505Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4033e0a6-3026-4bd9-9b44-a5113be85ee7",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "29ba6afa-7ea6-4fe4-b5f0-858053e9f67a",
+            "name": "delete_user",
+            "url": "http://localhost:8001/user/3",
+            "method": "DELETE",
+            "sortNum": 430000,
+            "created": "2024-01-21T19:35:40.807Z",
+            "modified": "2024-01-21T20:04:54.679Z",
+            "headers": [],
+            "params": [],
             "tests": []
         }
     ]
