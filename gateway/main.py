@@ -22,14 +22,28 @@ def get_user(user_id: int):
     response = grpc_client.get_user(user_id)
     if not response.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    return schemas.UserResponse(**response)
+    
+    user_response = schemas.UserResponse(
+        id=response.id,
+        username=response.username,
+        email=response.email,
+        is_active=response.is_active
+    )
+    return user_response
 
 @app.put("/user/{user_id}", response_model=schemas.UserResponse)
 def update_user(user_id: int, request: schemas.UpdateUserRequest):
     response = grpc_client.update_user(user_id, request.email, request.password, request.is_active)
     if not response.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    return schemas.UserResponse(**response)
+    
+    user_response = schemas.UserResponse(
+        id=response.id,
+        username=response.username,
+        email=response.email,
+        is_active=response.is_active
+    )
+    return user_response
 
 @app.delete("/user/{user_id}", response_model=schemas.DeleteUserResponse)
 def delete_user(user_id: int):

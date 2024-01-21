@@ -13,7 +13,6 @@ class GetUserRequest(BaseModel):
     id: int
     
 class UpdateUserRequest(BaseModel):
-    id: int
     email: str = None
     password: str = None
     is_active: bool = None
