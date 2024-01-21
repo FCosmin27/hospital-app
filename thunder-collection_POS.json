@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "POS",
-    "dateExported": "2024-01-21T11:35:12.088Z",
+    "dateExported": "2024-01-21T13:55:21.094Z",
     "version": "1.1",
     "folders": [
         {
@@ -493,8 +493,13 @@
             "method": "POST",
             "sortNum": 310000,
             "created": "2024-01-21T09:45:12.940Z",
-            "modified": "2024-01-21T11:19:11.586Z",
-            "headers": [],
+            "modified": "2024-01-21T13:54:57.580Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwNTg0Njk4MX0.HID7H-z-bB1BrdbveeTY72hmYgXYmXR3RKJhprhOl_4"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -512,8 +517,13 @@
             "method": "PUT",
             "sortNum": 340000,
             "created": "2024-01-21T09:45:42.584Z",
-            "modified": "2024-01-21T11:20:29.917Z",
-            "headers": [],
+            "modified": "2024-01-21T13:54:49.108Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwNTg0Njk4MX0.HID7H-z-bB1BrdbveeTY72hmYgXYmXR3RKJhprhOl_4"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -531,8 +541,13 @@
             "method": "DELETE",
             "sortNum": 360000,
             "created": "2024-01-21T09:46:02.192Z",
-            "modified": "2024-01-21T11:20:46.440Z",
-            "headers": [],
+            "modified": "2024-01-21T13:54:41.558Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwNTg0Njk4MX0.HID7H-z-bB1BrdbveeTY72hmYgXYmXR3RKJhprhOl_4"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -545,9 +560,47 @@
             "method": "GET",
             "sortNum": 370000,
             "created": "2024-01-21T11:01:10.794Z",
-            "modified": "2024-01-21T11:01:16.863Z",
-            "headers": [],
+            "modified": "2024-01-21T13:54:24.413Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwNTg0Njk4MX0.HID7H-z-bB1BrdbveeTY72hmYgXYmXR3RKJhprhOl_4"
+                }
+            ],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4b63fb69-6a5b-4499-a012-38f4f92a9bb6",
+            "colId": "78139949-7a0f-4420-8b00-aa0b329dd183",
+            "containerId": "05bfcff1-9dc6-479d-9c27-9422d8579cdc",
+            "name": "token",
+            "url": "http://localhost:8001/token",
+            "method": "POST",
+            "sortNum": 380000,
+            "created": "2024-01-21T12:58:50.128Z",
+            "modified": "2024-01-21T13:07:49.553Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "admin"
+                    },
+                    {
+                        "name": "password",
+                        "value": "admin"
+                    }
+                ]
+            },
             "tests": []
         }
     ]
