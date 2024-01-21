@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config import DATABASE_URL
+from crypto.encrypt import generate_password_hash
 import models
 
 engine = create_engine(DATABASE_URL)
@@ -41,3 +42,19 @@ def insert_roles_into_table():
                 
         db.commit()
         db.close()
+        
+def insert_admin_user():
+    admin_username = "admin"
+    admin_email = "admin@admin.com"
+    admin_password = "admin"
+    
+    with SessionLocal() as db:
+        existing_admin = db.query(models.Users).filter(models.Users.username == admin_username).first()
+        if not existing_admin:
+            hashed_password = generate_password_hash(admin_password)
+            admin_role = db.query(models.Roles).filter(models.Roles.name == "admin").first()
+            admin_user = models.Users(username=admin_username, email=admin_email, hashed_password=hashed_password, is_active=True)
+            admin_user.roles.append(admin_role)
+            db.add(admin_user)
+            db.commit()
+            db.close()
