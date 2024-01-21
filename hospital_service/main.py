@@ -2,12 +2,13 @@ from fastapi import FastAPI, HTTPException, status, Depends, Response
 from sqlalchemy.orm import Session
 import crud, models, schemas
 from datetime import date
-from database import engine
+from database import engine, create_db_users, delete_tables, get_db
 from typing import List
-from dependencies import get_db
 
-#delete_tables(engine)    
+#Uncomment to delete all tables
+#delete_tables()    
 
+#Uncomment at first run
 #create_db_users()
 
 models.Base.metadata.create_all(bind=engine)

@@ -1,12 +1,32 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config import DATABASE_URL
+from models import Appointments, Doctors, Patients
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def delete_tables():
+    inspector = inspect(engine)
+
+    if inspector.has_table('appointments'):
+        Appointments.__table__.drop(engine)
+    
+    if inspector.has_table('doctors'):
+        Doctors.__table__.drop(engine)
+    
+    if inspector.has_table('patients'):
+        Patients.__table__.drop(engine)
 
 
 def create_db_users():
