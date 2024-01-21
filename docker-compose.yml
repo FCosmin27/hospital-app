@@ -5,28 +5,37 @@ services:
       context: ./idm_service
       dockerfile: Dockerfile
     ports:
-      - "8001:8001"
+      - "50051:50051"
     depends_on:
       - mariadb_users
-      #- redis
+     # - redis
 
-  hospital_service:
+  gateway_service:
     build:
-      context: ./hospital_service
+      context: ./gateway
       dockerfile: Dockerfile
     ports:
-      - "8002:8002"
+      - "8001:8001"
     depends_on:
-      - mariadb_hospital
+      - idm_service
 
-  consultations_service:
-    build:
-      context: ./consultation_service
-      dockerfile: Dockerfile
-    ports:
-      - "8005:8005"
-    depends_on:
-      - mongodb_consultations
+  # hospital_service:
+  #   build:
+  #     context: ./hospital_service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8002:8002"
+  #   depends_on:
+  #     - mariadb_hospital
+
+  # consultations_service:
+  #   build:
+  #     context: ./consultation_service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8005:8005"
+  #   depends_on:
+  #     - mongodb_consultations
 
   mariadb_users:
     image: mariadb:latest
@@ -38,25 +47,25 @@ services:
     ports:
       - "3307:3306"
 
-  mariadb_hospital:
-    image: mariadb:latest
-    volumes:
-      - ${MARIADB_HOSPITAL_STORAGE}:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MARIADB_HOSPITAL_ROOT_PASSWORD}
-      MYSQL_DATABASE: "hospital_db"
-    ports:
-      - "3308:3306"
+  # mariadb_hospital:
+  #   image: mariadb:latest
+  #   volumes:
+  #     - ${MARIADB_HOSPITAL_STORAGE}:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MARIADB_HOSPITAL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: "hospital_db"
+  #   ports:
+  #     - "3308:3306"
 
-  mongodb_consultations:
-    image: mongo:4.4
-    volumes:
-      - ${MONGODB_CONSULTATION_STORAGE}:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_CONSULTATION_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_CONSULTATION_ROOT_PASSWORD}
-    ports:
-      - "27017:27017"
+  # mongodb_consultations:
+  #   image: mongo:4.4
+  #   volumes:
+  #     - ${MONGODB_CONSULTATION_STORAGE}:/data/db
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: ${MONGODB_CONSULTATION_ROOT_USERNAME}
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_CONSULTATION_ROOT_PASSWORD}
+  #   ports:
+  #     - "27017:27017"
 
   # redis:
   #   image: redis:latest
