@@ -13,6 +13,7 @@ class RoleName(str, Enum):
 
 class UserBase(BaseModel):
     username: str
+    email : str
 
 class UserCreate(UserBase):
     password: str
@@ -26,6 +27,11 @@ class User(UserBase):
         
 class UserWithLinks(User):
     links : List[Link] = []
+    
+class UserUpdate(BaseModel):
+    email: Optional[str] = None
+    password: Optional[str] = None
+    is_active: Optional[bool] = None
 
 class RoleBase(BaseModel):
     name: RoleName
