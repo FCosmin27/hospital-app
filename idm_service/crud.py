@@ -24,6 +24,14 @@ def get_users(db: Session):
     return db.query(models.Users).all()
 
 def create_user(db: Session, user: schemas.UserCreate, role_name: str):
+    existing_user = db.query(models.Users).filter(
+        (models.Users.username == user.username) | 
+        (models.Users.email == user.email)
+    ).first()
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username or email already registered")
+
     hashed_password = generate_password_hash(user.password)
     new_user = models.Users(username=user.username, email=user.email, hashed_password=hashed_password)
     role = db.query(models.Roles).filter(models.Roles.name == role_name).first()
