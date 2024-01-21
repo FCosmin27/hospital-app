@@ -1,5 +1,35 @@
 version: '3.8'
 services:
+  mariadb_users:
+    image: mariadb:latest
+    volumes:
+      - ${MARIADB_USERS_STORAGE}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_USERS_ROOT_PASSWORD}
+      MYSQL_DATABASE: "users_db"
+    ports:
+      - "3307:3306"
+
+  # mariadb_hospital:
+  #   image: mariadb:latest
+  #   volumes:
+  #     - ${MARIADB_HOSPITAL_STORAGE}:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MARIADB_HOSPITAL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: "hospital_db"
+  #   ports:
+  #     - "3308:3306"
+
+  # mongodb_consultations:
+  #   image: mongo:4.4
+  #   volumes:
+  #     - ${MONGODB_CONSULTATION_STORAGE}:/data/db
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: ${MONGODB_CONSULTATION_ROOT_USERNAME}
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_CONSULTATION_ROOT_PASSWORD}
+  #   ports:
+  #     - "27017:27017"
+
   idm_service:
     build:
       context: ./idm_service
@@ -36,36 +66,6 @@ services:
   #     - "8005:8005"
   #   depends_on:
   #     - mongodb_consultations
-
-  mariadb_users:
-    image: mariadb:latest
-    volumes:
-      - ${MARIADB_USERS_STORAGE}:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MARIADB_USERS_ROOT_PASSWORD}
-      MYSQL_DATABASE: "users_db"
-    ports:
-      - "3307:3306"
-
-  # mariadb_hospital:
-  #   image: mariadb:latest
-  #   volumes:
-  #     - ${MARIADB_HOSPITAL_STORAGE}:/var/lib/mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MARIADB_HOSPITAL_ROOT_PASSWORD}
-  #     MYSQL_DATABASE: "hospital_db"
-  #   ports:
-  #     - "3308:3306"
-
-  # mongodb_consultations:
-  #   image: mongo:4.4
-  #   volumes:
-  #     - ${MONGODB_CONSULTATION_STORAGE}:/data/db
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: ${MONGODB_CONSULTATION_ROOT_USERNAME}
-  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_CONSULTATION_ROOT_PASSWORD}
-  #   ports:
-  #     - "27017:27017"
 
   # redis:
   #   image: redis:latest

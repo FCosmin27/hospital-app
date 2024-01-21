@@ -27,7 +27,8 @@ def get_user(user_id: int):
         id=response.id,
         username=response.username,
         email=response.email,
-        is_active=response.is_active
+        is_active=response.is_active,
+        role=response.role
     )
     return user_response
 
@@ -41,7 +42,8 @@ def update_user(user_id: int, request: schemas.UpdateUserRequest):
         id=response.id,
         username=response.username,
         email=response.email,
-        is_active=response.is_active
+        is_active=response.is_active,
+        role=response.role
     )
     return user_response
 

@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11idm_service.proto\x12\x03idm\"2\n\x0cLoginRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\rLoginResponse\x12\x12\n\x05token\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x08\n\x06_token\"D\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"*\n\x10RegisterResponse\x12\x0f\n\x02id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x05\n\x03_id\"\x1c\n\x0eGetUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"\x87\x01\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x12\n\x05\x65mail\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08password\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tis_active\x18\x04 \x01(\x08H\x02\x88\x01\x01\x42\x08\n\x06_emailB\x0b\n\t_passwordB\x0c\n\n_is_active\"N\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\tis_active\x18\x04 \x01(\x08\"\x1f\n\x11\x44\x65leteUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"%\n\x12\x44\x65leteUserResponse\x12\x0f\n\x07message\x18\x01 \x01(\t2\xa0\x02\n\nIDMService\x12.\n\x05Login\x12\x11.idm.LoginRequest\x1a\x12.idm.LoginResponse\x12\x37\n\x08Register\x12\x14.idm.RegisterRequest\x1a\x15.idm.RegisterResponse\x12\x31\n\x07GetUser\x12\x13.idm.GetUserRequest\x1a\x11.idm.UserResponse\x12\x37\n\nUpdateUser\x12\x16.idm.UpdateUserRequest\x1a\x11.idm.UserResponse\x12=\n\nDeleteUser\x12\x16.idm.DeleteUserRequest\x1a\x17.idm.DeleteUserResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11idm_service.proto\x12\x03idm\"2\n\x0cLoginRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\rLoginResponse\x12\x12\n\x05token\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x08\n\x06_token\"D\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"*\n\x10RegisterResponse\x12\x0f\n\x02id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x05\n\x03_id\"\x1c\n\x0eGetUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"\x87\x01\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x12\n\x05\x65mail\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08password\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tis_active\x18\x04 \x01(\x08H\x02\x88\x01\x01\x42\x08\n\x06_emailB\x0b\n\t_passwordB\x0c\n\n_is_active\"\\\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\tis_active\x18\x04 \x01(\x08\x12\x0c\n\x04role\x18\x05 \x01(\t\"\x1f\n\x11\x44\x65leteUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"%\n\x12\x44\x65leteUserResponse\x12\x0f\n\x07message\x18\x01 \x01(\t2\xa0\x02\n\nIDMService\x12.\n\x05Login\x12\x11.idm.LoginRequest\x1a\x12.idm.LoginResponse\x12\x37\n\x08Register\x12\x14.idm.RegisterRequest\x1a\x15.idm.RegisterResponse\x12\x31\n\x07GetUser\x12\x13.idm.GetUserRequest\x1a\x11.idm.UserResponse\x12\x37\n\nUpdateUser\x12\x16.idm.UpdateUserRequest\x1a\x11.idm.UserResponse\x12=\n\nDeleteUser\x12\x16.idm.DeleteUserRequest\x1a\x17.idm.DeleteUserResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,11 +34,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_UPDATEUSERREQUEST']._serialized_start=270
   _globals['_UPDATEUSERREQUEST']._serialized_end=405
   _globals['_USERRESPONSE']._serialized_start=407
-  _globals['_USERRESPONSE']._serialized_end=485
-  _globals['_DELETEUSERREQUEST']._serialized_start=487
-  _globals['_DELETEUSERREQUEST']._serialized_end=518
-  _globals['_DELETEUSERRESPONSE']._serialized_start=520
-  _globals['_DELETEUSERRESPONSE']._serialized_end=557
-  _globals['_IDMSERVICE']._serialized_start=560
-  _globals['_IDMSERVICE']._serialized_end=848
+  _globals['_USERRESPONSE']._serialized_end=499
+  _globals['_DELETEUSERREQUEST']._serialized_start=501
+  _globals['_DELETEUSERREQUEST']._serialized_end=532
+  _globals['_DELETEUSERRESPONSE']._serialized_start=534
+  _globals['_DELETEUSERRESPONSE']._serialized_end=571
+  _globals['_IDMSERVICE']._serialized_start=574
+  _globals['_IDMSERVICE']._serialized_end=862
 # @@protoc_insertion_point(module_scope)

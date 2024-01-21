@@ -11,8 +11,8 @@ from database import engine, get_db, delete_tables, insert_roles_into_table, ins
 models.Base.metadata.create_all(bind=engine)
 
 #Uncommnet at first run
-insert_roles_into_table() 
-insert_admin_user()
+#insert_roles_into_table() 
+#insert_admin_user()
 
 class IDMServiceServicer(idm_service_pb2_grpc.IDMServiceServicer):
     def Login(self, request, context):
@@ -59,7 +59,7 @@ class IDMServiceServicer(idm_service_pb2_grpc.IDMServiceServicer):
                 return idm_service_pb2.UserResponse()
             context.set_code(grpc.StatusCode.OK)
             context.set_details('User found')
-            return idm_service_pb2.UserResponse(id=user.id, username=user.username, email=user.email, is_active=user.is_active)
+            return idm_service_pb2.UserResponse(id=user.id, username=user.username, email=user.email, is_active=user.is_active, role=user.role.name)
         finally:
             db.close()
        
@@ -74,7 +74,7 @@ class IDMServiceServicer(idm_service_pb2_grpc.IDMServiceServicer):
                 return idm_service_pb2.UserResponse()
             context.set_code(grpc.StatusCode.OK)
             context.set_details('User updated')
-            return idm_service_pb2.UserResponse(id=user.id, username=user.username, email=user.email, is_active=user.is_active)
+            return idm_service_pb2.UserResponse(id=user.id, username=user.username, email=user.email, is_active=user.is_active, role=user.role.name)
         finally:
             db.close()
             

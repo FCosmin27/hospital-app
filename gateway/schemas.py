@@ -31,6 +31,7 @@ class UserResponse(BaseModel):
     username: str
     email: str
     is_active: bool
+    role: str
 
 class DeleteUserResponse(BaseModel):
     message: str
