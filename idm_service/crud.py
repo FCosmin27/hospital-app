@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-import models, schemas, security
+import models, schemas
+from crypto.encrypt import generate_password_hash
 from fastapi import HTTPException
 
 def get_user(db: Session, user_id: int):
@@ -12,7 +13,7 @@ def get_users(db: Session):
     return db.query(models.Users).all()
 
 def create_user(db: Session, user: schemas.UserCreate, role_name: str):
-    hashed_password = security.generate_password_hash(user.password)
+    hashed_password = generate_password_hash(user.password)
     new_user = models.Users(username=user.username, email=user.email, hashed_password=hashed_password)
     role = db.query(models.Roles).filter(models.Roles.name == role_name).first()
     if not role:
@@ -25,23 +26,23 @@ def create_user(db: Session, user: schemas.UserCreate, role_name: str):
 
 
 def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
-    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
-    if not db_user:
+    user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
     if user.email is not None:
-        db_user.email = user.email
+        user.email = user.email
     if user.password is not None:
-        db_user.hashed_password = security.get_password_hash(user.password)
+        user.hashed_password = generate_password_hash(user.password)
     if user.is_active is not None:
-        db_user.is_active = user.is_active
+        user.is_active = user.is_active
  
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
 
 def delete_user(db: Session, user_id: int):
-    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
-    db.delete(db_user)
+    user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    db.delete(user)
     db.commit()
-    return db_user
+    return user
