@@ -2,8 +2,9 @@ from fastapi import FastAPI, HTTPException, status, Depends, Response
 from sqlalchemy.orm import Session
 import crud, models, schemas
 from datetime import date
-from database import SessionLocal, engine
+from database import engine
 from typing import List
+from dependencies import get_db
 
 #delete_tables(engine)    
 
@@ -13,12 +14,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 def generate_url(name: str, **path_params: str):
     return app.url_path_for(name, **path_params)
