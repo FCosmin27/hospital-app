@@ -1,8 +1,22 @@
 from sqlalchemy.orm import Session
 import models, schemas
 from datetime import date
+from fastapi import HTTPException
+import grpc
+from client import IDMClient
+grpc_client = IDMClient()
+
+def validate_id_user(id_user: int, db: Session):
+    try:
+        response = grpc_client.get_user(id_user)
+        if response.id != id_user:
+            raise HTTPException(status_code=400, detail="Invalid user ID")
+    except grpc.RpcError as e:
+        raise HTTPException(status_code=e.code(), detail=str(e))
+
 
 def create_patient(db: Session, patient: schemas.PatientCreate):
+    validate_id_user(patient.id_user, db)
     db_patient = models.Patients(**patient.dict())
     db.add(db_patient)
     db.commit()

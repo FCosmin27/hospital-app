@@ -79,3 +79,10 @@ class AppointmentSchema(BaseModel):
         
 class AppointmentSchemaWithLinks(AppointmentSchema):
     links : List[Link] = []
+    
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+    is_active: bool
+    role: str

@@ -4,7 +4,7 @@ import crud, models, schemas
 from datetime import date
 from database import engine, create_db_users, delete_tables, get_db
 from typing import List
-
+from client import IDMClient
 #Uncomment to delete all tables
 #delete_tables()    
 
@@ -14,7 +14,7 @@ from typing import List
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
+grpc_client = IDMClient()
 
 def generate_url(name: str, **path_params: str):
     return app.url_path_for(name, **path_params)
@@ -32,6 +32,20 @@ def create_patient(patient: schemas.PatientSchema, db: Session = Depends(get_db)
             ]
         }
     
+@app.get("/user/{user_id}", response_model=schemas.UserResponse)
+def get_user(user_id: int):
+    response = grpc_client.get_user(user_id)
+    if not response.id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    
+    user_response = schemas.UserResponse(
+        id=response.id,
+        username=response.username,
+        email=response.email,
+        is_active=response.is_active,
+        role=response.role
+    )
+    return user_response
 
 @app.get("/patients/{patient_id}", response_model=schemas.PatientSchemaWithLinks)
 def read_patient(patient_id: int, db: Session = Depends(get_db)):
