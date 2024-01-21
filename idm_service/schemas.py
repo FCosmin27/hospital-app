@@ -13,13 +13,14 @@ class RoleName(str, Enum):
 
 class UserBase(BaseModel):
     username: str
-    email : str
 
 class UserCreate(UserBase):
+    email : str
     password: str
 
 class User(UserBase):
     id: int
+    email: str
     is_active: bool
 
     class Config:

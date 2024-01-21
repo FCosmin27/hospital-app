@@ -1,31 +1,32 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Table
-from .database import Base
-from enum import Enum
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Table, Enum
+from database import Base
 from sqlalchemy.orm import relationship
 
-class User(Base):
+class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
+    username = Column(String(30), unique=True, index=True)
     email = Column(String(70), unique=True, index=True)
-    hashed_password = Column(String)
+    hashed_password = Column(String(70))
     is_active = Column(Boolean, default=True)
 
-    roles = relationship('Role', secondary='user_roles', back_populates='users')
+    roles = relationship('Roles', secondary='user_roles', back_populates='users')
 
     def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
-            "is_active": self.is_active
+            "email": self.email,
+            "is_active": self.is_active,
+            "roles": [role.name for role in self.roles]
         }
     
-class Role(Base):
+class Roles(Base):
     __tablename__ = 'roles'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(Enum('admin', 'doctor', 'patient'))
 
-    roles = relationship('User', secondary='user_roles', back_populates='roles')
+    users = relationship('Users', secondary='user_roles', back_populates='roles')
     
 user_roles = Table(
     'user_roles', Base.metadata,
